@@ -12,13 +12,15 @@ spring:
         uri: lb://emlakburada
         predicates:             
         - Path=/adverts/**, /users/**
-        - Method=POST,GET
       - id: emlakburada-banner
         uri: http://localhost:8081 
         predicates:
         - Path=/banners/**
         - Method=POST,GET 
 
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
 eureka:
   client:
     register-with-eureka: true
@@ -27,6 +29,4 @@ eureka:
 
 logging:
   level:
-    org.springframework.cloud.gateway: TRACE
-
-management.endpoints.web.exposure.include: '*'
+    '[org.springframework.security]': TRACE
