@@ -1,10 +1,14 @@
 server:
    port: 9090
 
-
 spring:
   application:
     name: emlakburada-gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8082/auth
   cloud:
     gateway:
       routes:
@@ -16,7 +20,12 @@ spring:
         uri: http://localhost:8081 
         predicates:
         - Path=/banners/**
-        - Method=POST,GET 
+        - Method=POST,GET
+      - id: emlakburada-auth
+        uri: http://localhost:8082
+        predicates:
+        - Path=/auth/**
+        - Method=POST
 
   main:
     allow-bean-definition-overriding: true
